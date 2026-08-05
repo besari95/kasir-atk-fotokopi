@@ -1,3 +1,8 @@
+// Cek login
+if (localStorage.getItem('isLoggedIn') !== 'true') {
+  window.location.href = 'index.html'
+}
+
 import { supabase } from './supabase.js'
 
 const tabelProduk = document.getElementById('tabelProduk')

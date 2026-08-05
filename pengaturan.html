@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - Kasir ATK & Fotokopi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow">
+        <div class="font-bold text-lg">Kasir ATK & Fotokopi</div>
+        <div class="space-x-4 text-sm">
+            <a href="kasir.html" class="hover:underline">Kasir</a>
+            <a href="produk.html" class="hover:underline">Produk</a>
+            <a href="laporan.html" class="hover:underline">Laporan</a>
+            <a href="pengaturan.html" class="font-bold underline">Pengaturan</a>
+            <a href="index.html" class="hover:underline">Keluar</a>
+        </div>
+    </nav>
+
+    <div class="max-w-xl mx-auto p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Pengaturan Toko</h1>
+
+        <div class="bg-white rounded-xl shadow p-6 space-y-5">
+            <div>
+                <label class="block text-sm font-medium mb-1">Nama Toko</label>
+                <input type="text" id="namaToko" value="ATK & Fotokopi"
+                    class="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Alamat</label>
+                <textarea id="alamat" rows="2"
+                    class="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">Jl. Contoh No. 123</textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Nomor WhatsApp</label>
+                <input type="text" id="whatsapp" value="081234567890"
+                    class="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Password Login</label>
+                <input type="password" id="password" placeholder="Kosongkan jika tidak ingin diubah"
+                    class="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <button onclick="simpanPengaturan()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg">
+                Simpan Pengaturan
+            </button>
+        </div>
+
+        <div class="mt-6 text-sm text-gray-500">
+            <p>Catatan:</p>
+            <ul class="list-disc ml-5 mt-1">
+                <li>Pengaturan disimpan di browser ini saja</li>
+                <li>Password default: <b>admin123</b></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Load pengaturan
+        const namaToko = localStorage.getItem('namaToko') || 'ATK & Fotokopi'
+        const alamat = localStorage.getItem('alamat') || 'Jl. Contoh No. 123'
+        const whatsapp = localStorage.getItem('whatsapp') || '081234567890'
+
+        document.getElementById('namaToko').value = namaToko
+        document.getElementById('alamat').value = alamat
+        document.getElementById('whatsapp').value = whatsapp
+
+        function simpanPengaturan() {
+            localStorage.setItem('namaToko', document.getElementById('namaToko').value)
+            localStorage.setItem('alamat', document.getElementById('alamat').value)
+            localStorage.setItem('whatsapp', document.getElementById('whatsapp').value)
+
+            const password = document.getElementById('password').value
+            if (password.trim() !== '') {
+                localStorage.setItem('password', password)
+            }
+
+            alert('Pengaturan berhasil disimpan!')
+        }
+    </script>
+</body>
+
+</html>
