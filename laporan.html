@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan - Kasir ATK & Fotokopi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow">
+        <div class="font-bold text-lg">Kasir ATK & Fotokopi</div>
+        <div class="space-x-4 text-sm">
+            <a href="kasir.html" class="hover:underline">Kasir</a>
+            <a href="produk.html" class="hover:underline">Produk</a>
+            <a href="laporan.html" class="font-bold underline">Laporan</a>
+            <a href="pengaturan.html" class="hover:underline">Pengaturan</a>
+            <a href="index.html" class="hover:underline">Keluar</a>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Laporan Penjualan</h1>
+
+        <!-- Filter -->
+        <div class="bg-white rounded-xl shadow p-4 mb-6 flex flex-wrap gap-4 items-end">
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
+                <input type="date" id="dariTanggal"
+                    class="border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
+                <input type="date" id="sampaiTanggal"
+                    class="border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button onclick="loadLaporan()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+                Tampilkan
+            </button>
+        </div>
+
+        <!-- Ringkasan -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white rounded-xl shadow p-5">
+                <div class="text-sm text-gray-500">Total Transaksi</div>
+                <div id="totalTransaksi" class="text-2xl font-bold mt-1">0</div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-5">
+                <div class="text-sm text-gray-500">Total Omzet</div>
+                <div id="totalOmzet" class="text-2xl font-bold mt-1 text-green-600">Rp 0</div>
+            </div>
+            <div class="bg-white rounded-xl shadow p-5">
+                <div class="text-sm text-gray-500">Rata-rata per Transaksi</div>
+                <div id="rataRata" class="text-2xl font-bold mt-1">Rp 0</div>
+            </div>
+        </div>
+
+        <!-- Tabel Transaksi -->
+        <div class="bg-white rounded-xl shadow overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 text-gray-600">
+                    <tr>
+                        <th class="px-4 py-3 text-left">No</th>
+                        <th class="px-4 py-3 text-left">Tanggal</th>
+                        <th class="px-4 py-3 text-right">Total</th>
+                        <th class="px-4 py-3 text-right">Bayar</th>
+                        <th class="px-4 py-3 text-right">Kembalian</th>
+                        <th class="px-4 py-3 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelLaporan">
+                    <tr>
+                        <td colspan="6" class="px-4 py-8 text-center text-gray-500">Memuat data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Detail -->
+    <div id="modalDetail" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-lg font-bold mb-4">Detail Transaksi</h2>
+            <div id="isiDetail" class="text-sm space-y-2"></div>
+            <button onclick="tutupDetail()" class="w-full mt-4 border rounded-lg py-2 hover:bg-gray-50">Tutup</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/laporan.js"></script>
+</body>
+
+</html>
