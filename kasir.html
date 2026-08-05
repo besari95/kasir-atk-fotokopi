@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir - ATK & Fotokopi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow">
+        <div class="font-bold text-lg">Kasir ATK & Fotokopi</div>
+        <div class="space-x-4 text-sm">
+            <a href="kasir.html" class="font-bold underline">Kasir</a>
+            <a href="produk.html" class="hover:underline">Produk</a>
+            <a href="laporan.html" class="hover:underline">Laporan</a>
+            <a href="pengaturan.html" class="hover:underline">Pengaturan</a>
+            <a href="index.html" class="hover:underline">Keluar</a>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Kiri: Daftar Produk -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl shadow p-4 mb-4">
+                <input type="text" id="cariProduk" placeholder="Cari produk atau jasa..."
+                    class="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div id="daftarProduk" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <!-- Produk akan muncul di sini -->
+            </div>
+        </div>
+
+        <!-- Kanan: Keranjang -->
+        <div class="bg-white rounded-xl shadow p-4 h-fit sticky top-4">
+            <h2 class="font-bold text-lg mb-4">Keranjang</h2>
+
+            <div id="keranjang" class="space-y-3 max-h-80 overflow-y-auto mb-4">
+                <p class="text-gray-400 text-sm text-center py-6">Keranjang masih kosong</p>
+            </div>
+
+            <div class="border-t pt-4 space-y-2">
+                <div class="flex justify-between text-lg font-bold">
+                    <span>Total</span>
+                    <span id="totalBelanja">Rp 0</span>
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Uang Bayar</label>
+                    <input type="number" id="uangBayar" min="0" placeholder="0"
+                        class="w-full border rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="flex justify-between font-medium">
+                    <span>Kembalian</span>
+                    <span id="kembalian">Rp 0</span>
+                </div>
+
+                <button id="btnBayar" onclick="prosesBayar()"
+                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg mt-3 disabled:opacity-50"
+                    disabled>
+                    Bayar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Struk -->
+    <div id="modalStruk" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-sm mx-4">
+            <div id="isiStruk" class="text-sm"></div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="tutupStruk()" class="flex-1 border rounded-lg py-2">Tutup</button>
+                <button onclick="window.print()" class="flex-1 bg-blue-600 text-white rounded-lg py-2">Cetak</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/kasir.js"></script>
+</body>
+
+</html>
