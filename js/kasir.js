@@ -46,10 +46,14 @@ function tampilkanProduk(data) {
     const div = document.createElement('div')
     div.className = 'bg-white border rounded-xl p-3 hover:shadow cursor-pointer transition'
     div.onclick = () => tambahKeKeranjang(p)
-    div.innerHTML = `
-      <div class="font-medium text-sm mb-1">${p.nama}</div>
-      <div class="text-xs text-gray-500 mb-2">${p.kategori} • Stok: ${p.stok}</div>
-      <div class="font-bold text-blue-600">Rp ${p.harga_jual.toLocaleString('id-ID')}</div>
+ div.innerHTML = `
+  <div class="font-medium text-sm mb-1">${p.nama}</div>
+  <div class="text-xs text-gray-500 mb-2">
+    ${p.kategori} • Stok: 
+    <span class="${p.stok <= 5 ? 'text-red-600 font-bold' : ''}">${p.stok}</span>
+    ${p.stok <= 5 ? '<span class="text-red-500">⚠</span>' : ''}
+  </div>
+  <div class="font-bold text-blue-600">Rp ${p.harga_jual.toLocaleString('id-ID')}</div>
     `
     daftarProduk.appendChild(div)
   })
@@ -212,14 +216,19 @@ window.prosesBayar = async function() {
 // Tampilkan struk
 function tampilkanStruk(transaksi, items, total, bayar, kembalian) {
   const tanggal = new Date(transaksi.created_at).toLocaleString('id-ID')
+  const namaToko = localStorage.getItem('namaToko') || 'ATK & Fotokopi'
+  const alamat = localStorage.getItem('alamat') || ''
+  const whatsapp = localStorage.getItem('whatsapp') || ''
 
   let html = `
-    <div class="text-center mb-4">
-      <div class="font-bold text-lg">ATK & Fotokopi</div>
-      <div class="text-xs text-gray-500">${tanggal}</div>
+    <div class="text-center mb-3">
+      <div class="font-bold text-lg">${namaToko}</div>
+      ${alamat ? `<div class="text-xs text-gray-600">${alamat}</div>` : ''}
+      ${whatsapp ? `<div class="text-xs text-gray-600">WA: ${whatsapp}</div>` : ''}
+      <div class="text-xs text-gray-500 mt-1">${tanggal}</div>
       <div class="text-xs">No: #${transaksi.id}</div>
     </div>
-    <div class="border-t border-b py-2 space-y-1">
+    <div class="border-t border-b py-2 space-y-1 text-sm">
   `
 
   items.forEach(item => {
@@ -233,7 +242,7 @@ function tampilkanStruk(transaksi, items, total, bayar, kembalian) {
 
   html += `
     </div>
-    <div class="mt-3 space-y-1">
+    <div class="mt-3 space-y-1 text-sm">
       <div class="flex justify-between font-bold">
         <span>Total</span>
         <span>Rp ${total.toLocaleString('id-ID')}</span>
@@ -247,7 +256,7 @@ function tampilkanStruk(transaksi, items, total, bayar, kembalian) {
         <span>Rp ${kembalian.toLocaleString('id-ID')}</span>
       </div>
     </div>
-    <div class="text-center text-xs text-gray-500 mt-4">Terima kasih</div>
+    <div class="text-center text-xs text-gray-500 mt-4">Terima kasih telah berbelanja</div>
   `
 
   isiStruk.innerHTML = html

@@ -47,7 +47,11 @@ async function loadProduk() {
         </span>
       </td>
       <td class="px-4 py-3 text-right">Rp ${p.harga_jual.toLocaleString('id-ID')}</td>
-      <td class="px-4 py-3 text-right ${p.stok <= 5 ? 'text-red-600 font-bold' : ''}">${p.stok}</td>
+      <td class="px-4 py-3 text-right">
+        <span class="${p.stok <= 5 ? 'bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold' : ''}">
+          ${p.stok} ${p.stok <= 5 ? '⚠' : ''}
+        </span>
+        </td>
       <td class="px-4 py-3">${p.satuan || 'pcs'}</td>
       <td class="px-4 py-3 text-center space-x-2">
         <button onclick="editProduk(${p.id})" class="text-blue-600 hover:underline">Edit</button>

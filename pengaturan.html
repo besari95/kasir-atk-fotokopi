@@ -56,6 +56,68 @@
             </button>
         </div>
 
+<div class="mt-8 border-t pt-6">
+    <h2 class="font-bold mb-3">Backup Data</h2>
+    <p class="text-sm text-gray-500 mb-4">Download data produk & transaksi sebagai file JSON</p>
+    <button onclick="backupData()"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2.5 rounded-lg">
+        Download Backup
+    </button>
+</div>
+
+<script type="module">
+    import { supabase } from './js/supabase.js'
+
+    // Load pengaturan
+    const namaToko = localStorage.getItem('namaToko') || 'ATK & Fotokopi'
+    const alamat = localStorage.getItem('alamat') || 'Jl. Contoh No. 123'
+    const whatsapp = localStorage.getItem('whatsapp') || '081234567890'
+
+    document.getElementById('namaToko').value = namaToko
+    document.getElementById('alamat').value = alamat
+    document.getElementById('whatsapp').value = whatsapp
+
+    window.simpanPengaturan = function () {
+        localStorage.setItem('namaToko', document.getElementById('namaToko').value)
+        localStorage.setItem('alamat', document.getElementById('alamat').value)
+        localStorage.setItem('whatsapp', document.getElementById('whatsapp').value)
+
+        const password = document.getElementById('password').value
+        if (password.trim() !== '') {
+            localStorage.setItem('password', password)
+        }
+
+        alert('Pengaturan berhasil disimpan!')
+    }
+
+    window.backupData = async function () {
+        try {
+            const { data: produk } = await supabase.from('produk').select('*')
+            const { data: transaksi } = await supabase.from('transaksi').select('*')
+            const { data: detail } = await supabase.from('detail_transaksi').select('*')
+
+            const backup = {
+                tanggal: new Date().toISOString(),
+                produk,
+                transaksi,
+                detail_transaksi: detail
+            }
+
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' })
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = `backup-kasir-${new Date().toISOString().slice(0, 10)}.json`
+            a.click()
+            URL.revokeObjectURL(url)
+
+            alert('Backup berhasil di-download!')
+        } catch (err) {
+            alert('Gagal backup: ' + err.message)
+        }
+    }
+</script>
+
         <div class="mt-6 text-sm text-gray-500">
             <p>Catatan:</p>
             <ul class="list-disc ml-5 mt-1">
