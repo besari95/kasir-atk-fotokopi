@@ -115,3 +115,33 @@ window.tutupDetail = function() {
 
 // Load saat halaman dibuka
 loadLaporan()
+
+// Download Detail sebagai Gambar
+window.downloadDetailGambar = async function() {
+  const elemen = document.getElementById('isiDetail')
+  const canvas = await html2canvas(elemen, { scale: 2, backgroundColor: '#ffffff' })
+  const link = document.createElement('a')
+  link.download = `detail-transaksi-${Date.now()}.png`
+  link.href = canvas.toDataURL('image/png')
+  link.click()
+}
+
+// Download Detail sebagai PDF
+window.downloadDetailPDF = async function() {
+  const { jsPDF } = window.jspdf
+  const elemen = document.getElementById('isiDetail')
+  const canvas = await html2canvas(elemen, { scale: 2, backgroundColor: '#ffffff' })
+  const imgData = canvas.toDataURL('image/png')
+
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  })
+
+  const width = pdf.internal.pageSize.getWidth() - 20
+  const height = (canvas.height * width) / canvas.width
+
+  pdf.addImage(imgData, 'PNG', 10, 10, width, height)
+  pdf.save(`detail-transaksi-${Date.now()}.pdf`)
+}
