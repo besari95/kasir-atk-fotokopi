@@ -32,8 +32,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir - ATK & Fotokopi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
@@ -99,15 +97,15 @@
     </div>
 
     <!-- Modal Struk -->
-<div class="flex gap-2 mt-6">
-    <button onclick="tutupStruk()" class="flex-1 border rounded-lg py-2 text-sm hover:bg-gray-50">Tutup</button>
-    <button onclick="downloadStrukGambar()"
-        class="flex-1 bg-violet-100 text-violet-700 rounded-lg py-2 text-sm hover:bg-violet-200">Gambar</button>
-    <button onclick="downloadStrukPDF()"
-        class="flex-1 bg-violet-600 text-white rounded-lg py-2 text-sm hover:bg-violet-700">PDF</button>
-    <button onclick="window.print()"
-        class="flex-1 bg-gray-800 text-white rounded-lg py-2 text-sm hover:bg-gray-900">Cetak</button>
-</div>
+    <div id="modalStruk" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-sm mx-4">
+            <div id="isiStruk" class="text-sm"></div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="tutupStruk()" class="flex-1 border rounded-lg py-2">Tutup</button>
+                <button onclick="window.print()" class="flex-1 bg-blue-600 text-white rounded-lg py-2">Cetak</button>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="js/kasir.js"></script>
 </body>

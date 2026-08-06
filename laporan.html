@@ -81,12 +81,13 @@
     </div>
 
     <!-- Modal Detail -->
-<div class="flex gap-2 mt-4">
-    <button onclick="tutupDetail()" class="flex-1 border rounded-lg py-2 text-sm hover:bg-gray-50">Tutup</button>
-    <button onclick="downloadDetailGambar()"
-        class="flex-1 bg-violet-100 text-violet-700 rounded-lg py-2 text-sm">Gambar</button>
-    <button onclick="downloadDetailPDF()" class="flex-1 bg-violet-600 text-white rounded-lg py-2 text-sm">PDF</button>
-</div>
+    <div id="modalDetail" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-lg font-bold mb-4">Detail Transaksi</h2>
+            <div id="isiDetail" class="text-sm space-y-2"></div>
+            <button onclick="tutupDetail()" class="w-full mt-4 border rounded-lg py-2 hover:bg-gray-50">Tutup</button>
+        </div>
+    </div>
 
     <script type="module" src="js/laporan.js"></script>
 </body>

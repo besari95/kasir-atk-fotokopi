@@ -210,37 +210,6 @@ window.prosesBayar = async function() {
   keranjang = []
   uangBayarEl.value = ''
   renderKeranjang()
-  
-  // Download struk sebagai Gambar
-window.downloadStrukGambar = async function() {
-  const elemen = document.getElementById('isiStruk')
-  const canvas = await html2canvas(elemen, { scale: 2, backgroundColor: '#ffffff' })
-  const link = document.createElement('a')
-  link.download = `struk-${Date.now()}.png`
-  link.href = canvas.toDataURL('image/png')
-  link.click()
-}
-
-// Download struk sebagai PDF
-window.downloadStrukPDF = async function() {
-  const { jsPDF } = window.jspdf
-  const elemen = document.getElementById('isiStruk')
-  const canvas = await html2canvas(elemen, { scale: 2, backgroundColor: '#ffffff' })
-  const imgData = canvas.toDataURL('image/png')
-
-  const pdf = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: [80, 120]          // ukuran mirip struk thermal
-  })
-
-  const width = pdf.internal.pageSize.getWidth()
-  const height = (canvas.height * width) / canvas.width
-
-  pdf.addImage(imgData, 'PNG', 0, 0, width, height)
-  pdf.save(`struk-${Date.now()}.pdf`)
-}
-  
   loadProduk() // refresh stok
 }
 
